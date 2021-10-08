@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace DataGenerator.Data.DataAccess
 {
+    /// <summary>
+    /// Data access layer for a mongo (atlas) db.
+    /// </summary>
     public class MongoDataLayer : IDataLayer
     {
         private IMongoDatabase _dataBase;

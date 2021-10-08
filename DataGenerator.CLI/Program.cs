@@ -1,9 +1,11 @@
-﻿using DataGenerator.Data;
+﻿using DataGenerator.Business;
+using DataGenerator.Data;
 using DataGenerator.Data.DataAccess;
 using DataGenerator.Data.Infrastructure;
 using DataGenerator.Data.Models;
 using Microsoft.Azure.Cosmos;
 using System;
+using System.Linq;
 
 namespace DataGenerator.CLI
 {
@@ -14,17 +16,18 @@ namespace DataGenerator.CLI
         static void Main(string[] args)
         {
             GetDataLayer();
-            var item = new LastName()
-            {
-                Name = "Benni",
-                IsoCode = (int)IsoCode.DE
-            };
-            _dataLayer.InsertRecord("LastName", item);
+            var manager = new SampleDataManager(_dataLayer);
+            //manager.CreateSampleDataItem<LastName>(new System.Collections.Generic.List<object>() { "Test" }, IsoCode.FR);
             var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
-            foreach (var lastName in lastNames.Result)
+            var result = lastNames.Result.Where(ln => ln.Value == "Test");
+            if (result.FirstOrDefault() != null )
             {
-                Console.WriteLine(lastName.Name);
+                Console.WriteLine(result.FirstOrDefault().Value);
             }
+            //foreach (var lastName in lastNames.Result)
+            //{
+            //    Console.WriteLine(lastName.Value);
+            //}
         }
 
         private static void GetDataLayer()

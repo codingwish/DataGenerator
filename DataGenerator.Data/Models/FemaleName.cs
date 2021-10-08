@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace DataGenerator.Data.Models
 {
     /// <summary>
-    /// Last names data model.
+    /// Female names data model.
     /// </summary>
-    public class LastName : ILocalizedValue
+    public class FemaleName : ILocalizedValue
     {
         /// <inheritdoc />
         public string Value { get; set; }

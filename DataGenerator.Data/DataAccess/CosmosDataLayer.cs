@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DataGenerator.Data.DataAccess
 {
+    /// <summary>
+    /// Data access layer for a sql (core) cosmos db.
+    /// </summary>
     public class CosmosDataLayer : IDataLayer
     {
         private Database _dataBase;
@@ -67,7 +70,7 @@ namespace DataGenerator.Data.DataAccess
         /// CosmosDb has no auto-increment on id, but id is mandatory.
         /// </summary>
         /// <typeparam name="T">Data model class.</typeparam>
-        /// <param name="item">Item which needs to be converted to a valid item.</param>
+        /// <param name="item">Item without mandatory id.</param>
         /// <returns>Item with id added.</returns>
         private object CreateCosmosDbItem<T>(T item)
         {

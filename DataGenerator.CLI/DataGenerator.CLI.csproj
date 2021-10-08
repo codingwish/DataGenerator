@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataGenerator.Business\DataGenerator.Business.csproj" />
     <ProjectReference Include="..\DataGenerator.Data\DataGenerator.Data.csproj" />
   </ItemGroup>
 
