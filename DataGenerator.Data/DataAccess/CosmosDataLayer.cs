@@ -1,5 +1,6 @@
 ﻿using DataGenerator.Data.Infrastructure;
 using Microsoft.Azure.Cosmos;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,8 +32,16 @@ namespace DataGenerator.Data.DataAccess
         /// <inheritdoc />
         public async Task InsertRecord<T>(string containerName, T item)
         {
-            Container container = await _dataBase.CreateContainerIfNotExistsAsync(containerName, "/id");
-            await container.CreateItemAsync(item);
+            try
+            {
+                Container container = await GetContainerAsync(containerName);
+                var cosmosDbItem = CreateCosmosDbItem(item);
+                await container.CreateItemAsync(cosmosDbItem);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <inheritdoc />
@@ -51,6 +60,24 @@ namespace DataGenerator.Data.DataAccess
         private async Task<Container> GetContainerAsync(string containerName)
         {
             return await _dataBase.CreateContainerIfNotExistsAsync(containerName, "/id");
+        }
+
+        /// <summary>
+        /// Adds the mandatory id value as Guid to items.
+        /// CosmosDb has no auto-increment on id, but id is mandatory.
+        /// </summary>
+        /// <typeparam name="T">Data model class.</typeparam>
+        /// <param name="item">Item which needs to be converted to a valid item.</param>
+        /// <returns>Item with id added.</returns>
+        private object CreateCosmosDbItem<T>(T item)
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            string jsonItem = JsonConvert.SerializeObject(item);
+            jsonItem = jsonItem.Insert(1, $@"""id"":""{Guid.NewGuid()}"",");
+            return JsonConvert.DeserializeObject(jsonItem);
         }
     }
 }

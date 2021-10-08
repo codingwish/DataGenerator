@@ -2,6 +2,7 @@
 using DataGenerator.Data.DataAccess;
 using DataGenerator.Data.Infrastructure;
 using DataGenerator.Data.Models;
+using Microsoft.Azure.Cosmos;
 using System;
 
 namespace DataGenerator.CLI
@@ -13,10 +14,16 @@ namespace DataGenerator.CLI
         static void Main(string[] args)
         {
             GetDataLayer();
-            var items =_dataLayer.SelectRecords<LastName>("LastName");
-            foreach (var item in items.Result)
+            var item = new LastName()
             {
-                Console.WriteLine(item.Name);
+                Name = "Benni",
+                IsoCode = (int)IsoCode.DE
+            };
+            _dataLayer.InsertRecord("LastName", item);
+            var items = _dataLayer.SelectRecords<LastName>("LastName");
+            foreach (var lastName in items.Result)
+            {
+                Console.WriteLine(lastName.Name);
             }
         }
 
@@ -33,7 +40,6 @@ namespace DataGenerator.CLI
                     connectionString = Console.ReadLine();
                     result = connectionString == "E" || Connect(connectionString);
                 }
-
             }
             catch (Exception ex)
             {
