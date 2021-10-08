@@ -20,8 +20,8 @@ namespace DataGenerator.CLI
                 IsoCode = (int)IsoCode.DE
             };
             _dataLayer.InsertRecord("LastName", item);
-            var items = _dataLayer.SelectRecords<LastName>("LastName");
-            foreach (var lastName in items.Result)
+            var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
+            foreach (var lastName in lastNames.Result)
             {
                 Console.WriteLine(lastName.Name);
             }
