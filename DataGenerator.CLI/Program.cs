@@ -1,6 +1,7 @@
 ﻿using DataGenerator.Data;
 using DataGenerator.Data.DataAccess;
 using DataGenerator.Data.Infrastructure;
+using DataGenerator.Data.Models;
 using System;
 
 namespace DataGenerator.CLI
@@ -12,6 +13,11 @@ namespace DataGenerator.CLI
         static void Main(string[] args)
         {
             GetDataLayer();
+            var items =_dataLayer.SelectRecords<LastName>("LastName");
+            foreach (var item in items.Result)
+            {
+                Console.WriteLine(item.Name);
+            }
         }
 
         private static void GetDataLayer()

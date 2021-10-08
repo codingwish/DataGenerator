@@ -28,17 +28,17 @@ namespace DataGenerator.Data.DataAccess
         }
 
         /// <inheritdoc />
-        public async Task InsertRecord<T>(string container, T item)
+        public async Task InsertRecord<T>(string collectionName, T item)
         {
-            var collection = _dataBase.GetCollection<T>(container);
+            var collection = _dataBase.GetCollection<T>(collectionName);
             await collection.InsertOneAsync(item);
         }
 
         /// <inheritdoc />
-        public async Task<List<T>> SelectRecords<T>(string container)
+        public async Task<List<T>> SelectRecords<T>(string collectionName)
         {
             var result = new List<T>();
-            var collection = _dataBase.GetCollection<T>(container);
+            var collection = _dataBase.GetCollection<T>(collectionName);
             var queryResult = await Task.FromResult(collection.AsQueryable());
             foreach (var item in queryResult)
             {

@@ -29,18 +29,18 @@ namespace DataGenerator.Data.DataAccess
         }
 
         /// <inheritdoc />
-        public async Task InsertRecord<T>(string container, T item)
+        public async Task InsertRecord<T>(string containerName, T item)
         {
-            Container collection = await _dataBase.CreateContainerIfNotExistsAsync(container, "ID");
-            await collection.CreateItemAsync(item);
+            Container container = await _dataBase.CreateContainerIfNotExistsAsync(containerName, "/id");
+            await container.CreateItemAsync(item);
         }
 
         /// <inheritdoc />
-        public async Task<List<T>> SelectRecords<T>(string container)
+        public async Task<List<T>> SelectRecords<T>(string containerName)
         {
             var result = new List<T>();
-            Container collection = await GetContainerAsync(container);
-            var queryResult = collection.GetItemLinqQueryable<T>();
+            Container container = await GetContainerAsync(containerName);
+            var queryResult = container.GetItemLinqQueryable<T>(true);
             foreach (var item in queryResult)
             {
                 result.Add(item);
@@ -48,9 +48,9 @@ namespace DataGenerator.Data.DataAccess
             return result;
         }
 
-        private async Task<Container> GetContainerAsync(string container)
+        private async Task<Container> GetContainerAsync(string containerName)
         {
-            return await _dataBase.CreateContainerIfNotExistsAsync(container, "ID");
+            return await _dataBase.CreateContainerIfNotExistsAsync(containerName, "/id");
         }
     }
 }

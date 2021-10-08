@@ -22,16 +22,16 @@ namespace DataGenerator.Data.Infrastructure
         /// Adds a new item to the repository.
         /// </summary>
         /// <typeparam name="T">Type of data model.</typeparam>
-        /// <param name="container">Name of the container.</param>
-        /// <param name="item">Item which should be added to the repository.</param>
-        Task InsertRecord<T>(string container, T item);
+        /// <param name="table">Name of the container/collection/table.</param>
+        /// <param name="entity">Item which should be added to the repository.</param>
+        Task InsertRecord<T>(string table, T entity);
 
         /// <summary>
         /// Loads a list of items from the repository.
         /// </summary>
         /// <typeparam name="T">Type of data model.</typeparam>
-        /// <param name="container">Name of the container.</param>
+        /// <param name="table">Name of the container/collection/table.</param>
         /// <returns></returns>
-        Task<List<T>> SelectRecords<T>(string container);
+        Task<List<T>> SelectRecords<T>(string table);
     }
 }
