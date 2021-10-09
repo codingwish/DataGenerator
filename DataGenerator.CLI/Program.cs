@@ -6,6 +6,7 @@ using DataGenerator.Data.Models;
 using Microsoft.Azure.Cosmos;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataGenerator.CLI
 {
@@ -16,8 +17,9 @@ namespace DataGenerator.CLI
         static void Main(string[] args)
         {
             GetDataLayer();
-            var manager = new SampleDataManager(_dataLayer);
+            Init();
             //manager.CreateSampleDataItem<LastName>(new System.Collections.Generic.List<object>() { "Test" }, IsoCode.FR);
+            
             var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
             var result = lastNames.Result.Where(ln => ln.Value == "Test");
             if (result.FirstOrDefault() != null )
@@ -28,6 +30,13 @@ namespace DataGenerator.CLI
             //{
             //    Console.WriteLine(lastName.Value);
             //}
+        }
+
+        private static void Init()
+        {
+            var manager = new SampleDataManager(_dataLayer);
+            var t = Task.Run(() => manager.Init());
+            t.Wait();
         }
 
         private static void GetDataLayer()

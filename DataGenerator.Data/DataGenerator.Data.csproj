@@ -10,7 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="SampleData\FirstNamesFemale.txt">
+    <None Update="SampleData\FirstNamesFemale_en.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SampleData\FirstNamesFemale_de.txt">

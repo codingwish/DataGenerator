@@ -26,42 +26,62 @@ namespace DataGenerator.Business
         /// <summary>
         /// 
         /// </summary>
-        public void Init()
+        public async Task Init()
         {
-            Reset();
-            Load();
+            await Reset();
+            await Load();
         }
 
-        private void Load()
+        private async Task Load()
         {
+            var tasks = new List<Task>();
+            var fileReader = new SampleDataFileReader();
             foreach (IsoCode isoCode in Enum.GetValues(typeof(IsoCode)))
             {
-                CreateSampleDataItems<LastName>("LastNames", isoCode);
-                CreateSampleDataItems<MaleName>("FirstNamesMale", isoCode);
-                CreateSampleDataItems<FemaleName>("FirstNamesFemale", isoCode);
+                tasks.Add(CreateSampleDataItemsAsync<LastName>(fileReader, "LastNames", isoCode));
+                tasks.Add(CreateSampleDataItemsAsync<MaleName>(fileReader, "FirstNamesMale", isoCode));
+                tasks.Add(CreateSampleDataItemsAsync<FemaleName>(fileReader, "FirstNamesFemale", isoCode));
+            }
+            while (tasks.Count > 0)
+            {
+                var task = await Task.WhenAny(tasks);
+                tasks.Remove(task);
+                Console.WriteLine($"{tasks.Count} remaining.");
             }
         }
 
-        private void Reset()
+        private async Task Reset()
         {
-            _dataLayer.DeleteRepository();
+            var tasks = new List<Task>();
+            tasks.Add(_dataLayer.Delete("LastName"));
+            tasks.Add(_dataLayer.Delete("MaleName"));
+            tasks.Add(_dataLayer.Delete("FemaleName"));
+            await Task.WhenAll(tasks);
         }
 
-        private void CreateSampleDataItems<T>(string fileName, IsoCode isoCode)
+        private async Task CreateSampleDataItemsAsync<T>(SampleDataFileReader fileReader, string fileName, IsoCode isoCode)
             where T : ILocalizedValue
         {
-            var fileReader = new SampleDataFileReader();
-            var sampleData = fileReader.ReadAsync($"{fileName}_{isoCode}.txt");
-            if (sampleData == null)
+            try
             {
-                return;
+                Console.WriteLine($"{fileName} {isoCode} ready");
+                var sampleData = await fileReader.ReadAsync($"{fileName}_{isoCode}.txt");
+                if (sampleData == null)
+                {
+                    return;
+                }
+                foreach (var value in sampleData)
+                {
+                    var item = (ILocalizedValue)Activator.CreateInstance(typeof(T));
+                    item.IsoCode = (int)isoCode;
+                    item.Value = value.ToString();
+                    await _dataLayer.InsertRecord(item.GetType().Name, item);
+                }
+                Console.WriteLine($"{fileName} {isoCode} finished");
             }
-            foreach (var value in sampleData.Result)
+            catch (Exception ex)
             {
-                var item = (ILocalizedValue)Activator.CreateInstance(typeof(T));
-                item.IsoCode = (int)isoCode;
-                item.Value = value.ToString();
-                _dataLayer.InsertRecord(item.GetType().Name, item);
+                Console.WriteLine(ex);
             }
         }
     }

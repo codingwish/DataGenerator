@@ -37,7 +37,7 @@ namespace DataGenerator.Data.DataAccess
         {
             try
             {
-                Container container = await GetContainerAsync(containerName);
+                var container = await GetContainerAsync(containerName);
                 var cosmosDbItem = CreateCosmosDbItem(item);
                 await container.CreateItemAsync(cosmosDbItem);
             }
@@ -71,6 +71,8 @@ namespace DataGenerator.Data.DataAccess
         {
             var container = await GetContainerAsync(containerName);
             await container.DeleteContainerAsync();
+            Console.WriteLine($"{containerName} deleted");
+            await GetContainerAsync(containerName);
         }
 
         /// <inheritdoc />
@@ -78,8 +80,8 @@ namespace DataGenerator.Data.DataAccess
         {
             var container = await GetContainerAsync(containerName);
             await container.DeleteItemAsync<T>(key.ToString(), new PartitionKey("/id"));
+            Console.WriteLine($"{containerName} Item {key} deleted");
         }
-
 
         private async Task<Container> GetContainerAsync(string containerName)
         {
