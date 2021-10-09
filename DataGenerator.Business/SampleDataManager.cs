@@ -51,12 +51,12 @@ namespace DataGenerator.Business
             where T : ILocalizedValue
         {
             var fileReader = new SampleDataFileReader();
-            var sampleData = fileReader.Read($"{fileName}_{isoCode}.txt");
+            var sampleData = fileReader.ReadAsync($"{fileName}_{isoCode}.txt");
             if (sampleData == null)
             {
                 return;
             }
-            foreach (var value in sampleData)
+            foreach (var value in sampleData.Result)
             {
                 var item = (ILocalizedValue)Activator.CreateInstance(typeof(T));
                 item.IsoCode = (int)isoCode;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataGenerator.Business
 {
@@ -15,7 +16,7 @@ namespace DataGenerator.Business
         /// </summary>
         /// <param name="fileName">Filename</param>
         /// <returns>Lines of file.</returns>
-        public List<object> Read(string fileName)
+        public async Task<List<object>> ReadAsync(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
             {
@@ -26,7 +27,8 @@ namespace DataGenerator.Business
             {
                 return null;
             }
-            return File.ReadLines(path).ToList<object>();
+            var lines = await File.ReadAllLinesAsync(path);
+            return lines.ToList<object>();
         }
 
         private string GetFilePath(string fileName)
