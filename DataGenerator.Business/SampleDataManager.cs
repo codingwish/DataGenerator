@@ -12,6 +12,10 @@ namespace DataGenerator.Business
     public class SampleDataManager
     {
         private readonly IDataLayer _dataLayer;
+
+        /// <summary>
+        /// Internal constructor.
+        /// </summary>
         private SampleDataManager() { }
 
         public SampleDataManager(IDataLayer dataLayer)
@@ -19,7 +23,16 @@ namespace DataGenerator.Business
             _dataLayer = dataLayer;
         }
 
-        public void CreateAll()
+        /// <summary>
+        /// 
+        /// </summary>
+        public void Init()
+        {
+            Reset();
+            Load();
+        }
+
+        private void Load()
         {
             foreach (IsoCode isoCode in Enum.GetValues(typeof(IsoCode)))
             {
@@ -27,6 +40,11 @@ namespace DataGenerator.Business
                 CreateSampleDataItems<MaleName>("FirstNamesMale", isoCode);
                 CreateSampleDataItems<FemaleName>("FirstNamesFemale", isoCode);
             }
+        }
+
+        private void Reset()
+        {
+            _dataLayer.DeleteRepository();
         }
 
         private void CreateSampleDataItems<T>(string fileName, IsoCode isoCode)

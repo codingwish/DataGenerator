@@ -3,7 +3,6 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataGenerator.Data.DataAccess
@@ -20,7 +19,7 @@ namespace DataGenerator.Data.DataAccess
         {
             try
             {
-                var client = new MongoClient(connectionString);
+                MongoClient client = new MongoClient(connectionString);
                 _dataBase = client.GetDatabase("data");
                 return true;
             }
@@ -33,21 +32,41 @@ namespace DataGenerator.Data.DataAccess
         /// <inheritdoc />
         public async Task InsertRecord<T>(string collectionName, T item)
         {
-            var collection = _dataBase.GetCollection<T>(collectionName);
+            IMongoCollection<T> collection = _dataBase.GetCollection<T>(collectionName);
             await collection.InsertOneAsync(item);
         }
 
         /// <inheritdoc />
         public async Task<List<T>> SelectRecords<T>(string collectionName)
         {
-            var result = new List<T>();
-            var collection = _dataBase.GetCollection<T>(collectionName);
-            var queryResult = await Task.FromResult(collection.AsQueryable());
-            foreach (var item in queryResult)
+            List<T> result = new List<T>();
+            IMongoCollection<T> collection = _dataBase.GetCollection<T>(collectionName);
+            MongoDB.Driver.Linq.IMongoQueryable<T> queryResult = await Task.FromResult(collection.AsQueryable());
+            foreach (T item in queryResult)
             {
                 result.Add(item);
             }
             return result;
+        }
+
+        /// <inheritdoc />
+        public async Task DeleteRepository()
+        {
+            _dataBase.Client.DropDatabase("data");
+        }
+
+        /// <inheritdoc />
+        public async Task Delete(string collectionName)
+        {
+            _dataBase.DropCollection(collectionName);
+        }
+
+        /// <inheritdoc />
+        public async Task Delete<T>(string collectionName, object key)
+        {
+            IMongoCollection<T> collection = _dataBase.GetCollection<T>(collectionName);
+            FilterDefinition<T> filter = Builders<T>.Filter.Eq("_id", key);
+            collection.FindOneAndDelete<T>(filter);
         }
     }
 }

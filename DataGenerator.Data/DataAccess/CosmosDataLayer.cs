@@ -51,7 +51,7 @@ namespace DataGenerator.Data.DataAccess
         public async Task<List<T>> SelectRecords<T>(string containerName)
         {
             var result = new List<T>();
-            Container container = await GetContainerAsync(containerName);
+            var container = await GetContainerAsync(containerName);
             var queryResult = container.GetItemLinqQueryable<T>(true);
             foreach (var item in queryResult)
             {
@@ -59,6 +59,27 @@ namespace DataGenerator.Data.DataAccess
             }
             return result;
         }
+
+        /// <inheritdoc />
+        public async Task DeleteRepository()
+        {
+            await _dataBase.DeleteAsync();
+        }
+
+        /// <inheritdoc />
+        public async Task Delete(string containerName)
+        {
+            var container = await GetContainerAsync(containerName);
+            await container.DeleteContainerAsync();
+        }
+
+        /// <inheritdoc />
+        public async Task Delete<T>(string containerName, object key)
+        {
+            var container = await GetContainerAsync(containerName);
+            await container.DeleteItemAsync<T>(key.ToString(), new PartitionKey("/id"));
+        }
+
 
         private async Task<Container> GetContainerAsync(string containerName)
         {

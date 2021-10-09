@@ -31,7 +31,26 @@ namespace DataGenerator.Data.Infrastructure
         /// </summary>
         /// <typeparam name="T">Type of data model.</typeparam>
         /// <param name="table">Name of the container/collection/table.</param>
-        /// <returns></returns>
+        /// <returns>All items from the container/collection/table.</returns>
         Task<List<T>> SelectRecords<T>(string table);
+
+        /// <summary>
+        /// Deletes the repository.
+        /// </summary>
+        Task DeleteRepository();
+
+        /// <summary>
+        /// Deletes a table/container/collection from the repository.
+        /// </summary>
+        /// <param name="table">Name of the table.</param>
+        Task Delete(string table);
+
+        /// <summary>
+        /// Deletes an item from the repository.
+        /// </summary>
+        /// <typeparam name="T">Type of data model.</typeparam>
+        /// <param name="table">Name of the table.</param>
+        /// <param name="key">Key of the item to be deleted.</param>
+        Task Delete<T>(string table, object key);
     }
 }
