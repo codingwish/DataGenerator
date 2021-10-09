@@ -56,9 +56,10 @@ namespace DataGenerator.Data.DataAccess
         }
 
         /// <inheritdoc />
-        public async Task Delete(string collectionName)
+        public async Task<bool> Delete(string collectionName)
         {
             _dataBase.DropCollection(collectionName);
+            return true;
         }
 
         /// <inheritdoc />

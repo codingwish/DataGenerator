@@ -1,15 +1,18 @@
-﻿using DataGenerator.Data;
+﻿using DataGenerator.Business.Infrastructure;
+using DataGenerator.Data;
 using DataGenerator.Data.Infrastructure;
 using DataGenerator.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataGenerator.Business
 {
-    public class SampleDataManager
+    /// <inheritdoc />
+    public class SampleDataManager : ISampleDataManager
     {
         private readonly IDataLayer _dataLayer;
 
@@ -18,14 +21,16 @@ namespace DataGenerator.Business
         /// </summary>
         private SampleDataManager() { }
 
+        /// <summary>
+        /// Creates a new instance with the provided data layer.
+        /// </summary>
+        /// <param name="dataLayer">Data access layer.</param>
         public SampleDataManager(IDataLayer dataLayer)
         {
             _dataLayer = dataLayer;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
+        /// <inheritdoc />
         public async Task Init()
         {
             await Reset();
@@ -46,17 +51,15 @@ namespace DataGenerator.Business
             {
                 var task = await Task.WhenAny(tasks);
                 tasks.Remove(task);
-                Console.WriteLine($"{tasks.Count} remaining.");
+                Debug.WriteLine($"{tasks.Count} remaining.");
             }
         }
 
         private async Task Reset()
         {
-            var tasks = new List<Task>();
-            tasks.Add(_dataLayer.Delete("LastName"));
-            tasks.Add(_dataLayer.Delete("MaleName"));
-            tasks.Add(_dataLayer.Delete("FemaleName"));
-            await Task.WhenAll(tasks);
+            await _dataLayer.Delete("LastName");
+            await _dataLayer.Delete("MaleName");
+            await _dataLayer.Delete("FemaleName");
         }
 
         private async Task CreateSampleDataItemsAsync<T>(SampleDataFileReader fileReader, string fileName, IsoCode isoCode)
@@ -64,7 +67,7 @@ namespace DataGenerator.Business
         {
             try
             {
-                Console.WriteLine($"{fileName} {isoCode} ready");
+                Debug.WriteLine($"{fileName} {isoCode} started");
                 var sampleData = await fileReader.ReadAsync($"{fileName}_{isoCode}.txt");
                 if (sampleData == null)
                 {
@@ -81,7 +84,7 @@ namespace DataGenerator.Business
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
     }

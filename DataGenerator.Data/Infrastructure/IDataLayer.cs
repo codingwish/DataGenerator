@@ -43,7 +43,7 @@ namespace DataGenerator.Data.Infrastructure
         /// Deletes a table/container/collection from the repository.
         /// </summary>
         /// <param name="table">Name of the table.</param>
-        Task Delete(string table);
+        Task<bool> Delete(string table);
 
         /// <summary>
         /// Deletes an item from the repository.

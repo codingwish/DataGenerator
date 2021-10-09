@@ -67,12 +67,13 @@ namespace DataGenerator.Data.DataAccess
         }
 
         /// <inheritdoc />
-        public async Task Delete(string containerName)
+        public async Task<bool> Delete(string containerName)
         {
             var container = await GetContainerAsync(containerName);
             await container.DeleteContainerAsync();
             Console.WriteLine($"{containerName} deleted");
             await GetContainerAsync(containerName);
+            return true;
         }
 
         /// <inheritdoc />
