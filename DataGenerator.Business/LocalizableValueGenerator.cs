@@ -11,20 +11,20 @@ namespace DataGenerator.Business
     /// <summary>
     /// Gets a random value from a list of localizable items.
     /// </summary>
-    public class RandomLocalizableValueGenerator
+    public class LocalizableValueGenerator
     {
         private readonly List<ILocalizableValue> _data;
 
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        private RandomLocalizableValueGenerator() { }
+        private LocalizableValueGenerator() { }
 
         /// <summary>
         /// Creates a new instance with the values provided.
         /// </summary>
         /// <param name="data">List of localizbable values.</param>
-        public RandomLocalizableValueGenerator(List<ILocalizableValue> data)
+        public LocalizableValueGenerator(List<ILocalizableValue> data)
         {
             _data = data;
         }
