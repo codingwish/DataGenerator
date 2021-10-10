@@ -29,72 +29,108 @@ namespace DataGenerator.CLI
             //Init();
             //manager.CreateSampleDataItem<LastName>(new System.Collections.Generic.List<object>() { "Test" }, IsoCode.FR);
 
-            var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
-            var result = lastNames.Result.Where(ln => ln.Value == "Müller");
-            if (result.FirstOrDefault() != null)
-            {
-                Console.WriteLine(result.FirstOrDefault().Value);
-            }
+            //var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
+            //var result = lastNames.Result.Where(ln => ln.Value == "Müller");
+            //if (result.FirstOrDefault() != null)
+            //{
+            //    Console.WriteLine(result.FirstOrDefault().Value);
+            //}
         }
 
         private static void ParseCommand(string input)
         {
-            if (input == "/i")
-            {
-                InitSampleData();
-            }
-            else if (input == "/?")
-            {
-                DisplayHelp();
-            }
-            else if (input == "/q")
-            {
-                Environment.Exit(0);
-            }
-            else
-            {
-                Console.WriteLine("Unknwon command. Type /? to list commands.");
-                ParseCommand(Console.ReadLine());
-            }
-        }
-
-        private static void DisplayHelp()
-        {
-            Console.WriteLine("/? displays this help menu.");
-            Console.WriteLine("/i clears the repository and loads the sample data.");
-            Console.WriteLine("/q will exit the application.");
-        }
-
-        private static void InitSampleData()
-        {
-            if (_dataLayer == null)
-            {
-                GetDataLayer();
-                Console.WriteLine("Failed to connect to the repository.");
-            }
-            ISampleDataManager manager = new SampleDataManager(_dataLayer);
-            var t = Task.Run(() => manager.Init());
-            t.Wait();
-        }
-
-        private static bool GetDataLayer()
-        {
             try
             {
-                Console.WriteLine("Enter connection string:");
-                string connectionString = Console.ReadLine();
-                IDataLayer dataLayer = new CosmosDataLayer();
-                var result = Connect(dataLayer, connectionString);
-                while (result == false)
+                if (string.IsNullOrEmpty(input) || input.Length < 2)
                 {
-                    Console.WriteLine("Enter connection string or /q to exit:");
-                    connectionString = Console.ReadLine();
-                    result = connectionString == "/q" || Connect(dataLayer, connectionString);
+                    throw new ArgumentNullException(nameof(input));
+                }
+                switch (input.Substring(0, 2))
+                {
+                    case "/i":
+                        InitSampleData();
+                        break;
+                    case "/?":
+                        ShowHelp();
+                        break;
+                    case "/q":
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        ShowCommandPrompt();
+                        break;
                 }
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
+                ShowCommandPrompt();
+            }
+        }
+
+        private static void ShowCommandPrompt()
+        {
+            Console.WriteLine("Please enter command. Type /? to get help.");
+            ParseCommand(Console.ReadLine());
+        }
+
+        private static void ShowHelp()
+        {
+            Console.WriteLine("/? displays this help menu.");
+            Console.WriteLine("/i clears the repository and loads the sample data.");
+            Console.WriteLine("/q will exit the application.");
+            ShowCommandPrompt();
+        }
+
+        private static void InitSampleData()
+        {
+            try
+            {
+                _dataLayer = _dataLayer == null ? GetDataLayer() : _dataLayer;
+                if (_dataLayer == null)
+                {
+                    throw new ApplicationException("Can't connect to repository.");
+                }
+                ISampleDataService manager = new SampleDataService(_dataLayer);
+                var t = Task.Run(() => manager.Init());
+                t.Wait();
+                ShowCommandPrompt();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                ShowCommandPrompt();
+            }
+        }
+
+        private static IDataLayer GetDataLayer()
+        {
+            try
+            {
+                Console.WriteLine("Enter connection string or /c to cancel:");
+                string connectionString = Console.ReadLine();
+                if (connectionString == "/c")
+                {
+                    return null;
+                }
+                IDataLayer dataLayer = new CosmosDataLayer();
+                var result = Connect(dataLayer, connectionString);
+                while (result == false)
+                {
+                    Console.WriteLine("Enter connection string or /c to cancel:");
+                    connectionString = Console.ReadLine();
+                    if (connectionString == "/c")
+                    {
+                        return null;
+                    }
+                    result = Connect(dataLayer, connectionString);
+                }
+                return dataLayer;
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.ToString());
+                return GetDataLayer();
             }
         }
 
