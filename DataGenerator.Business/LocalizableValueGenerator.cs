@@ -3,8 +3,6 @@ using DataGenerator.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataGenerator.Business
 {
@@ -45,7 +43,7 @@ namespace DataGenerator.Business
         /// <returns>Random value.</returns>
         public object Get(IsoCode isoCode)
         {
-            var languageItems = _data.Where(d => d.IsoCode == (int)isoCode);
+            IEnumerable<ILocalizableValue> languageItems = _data.Where(d => d.IsoCode == (int)isoCode);
             return Get(languageItems.ToList());
         }
 
