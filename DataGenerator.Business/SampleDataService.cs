@@ -67,7 +67,7 @@ namespace DataGenerator.Business
         }
 
         private async Task CreateSampleDataItemsAsync<T>(SampleDataFileReader fileReader, string fileName, IsoCode isoCode)
-            where T : ILocalizedValue
+            where T : ILocalizableValue
         {
             try
             {
@@ -79,7 +79,7 @@ namespace DataGenerator.Business
                 }
                 foreach (var value in sampleData)
                 {
-                    var item = (ILocalizedValue)Activator.CreateInstance(typeof(T));
+                    var item = (ILocalizableValue)Activator.CreateInstance(typeof(T));
                     item.IsoCode = (int)isoCode;
                     item.Value = value.ToString();
                     await _dataLayer.InsertRecord(item.GetType().Name, item);

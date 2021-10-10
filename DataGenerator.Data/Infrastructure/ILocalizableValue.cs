@@ -1,9 +1,9 @@
-﻿namespace DataGenerator.Data.Models
+﻿namespace DataGenerator.Data.Infrastructure
 {
     /// <summary>
-    /// 
+    /// Provides a value for a specific language IsoCode.
     /// </summary>
-    public interface ILocalizedValue
+    public interface ILocalizableValue
     {
         /// <summary>
         /// Language iso code.

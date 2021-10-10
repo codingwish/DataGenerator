@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataGenerator.Data.Infrastructure;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace DataGenerator.Data.Models
     /// <summary>
     /// Male names data model.
     /// </summary>
-    public class MaleName : ILocalizedValue
+    public class MaleName : ILocalizableValue
     {
         /// <inheritdoc />
         public string Value { get; set; }
