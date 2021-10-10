@@ -12,21 +12,25 @@ using System.Threading.Tasks;
 namespace DataGenerator.Business
 {
     /// <inheritdoc />
-    public class SampleDataManager : ISampleDataManager
+    public class SampleDataService : ISampleDataService
     {
         private readonly IDataLayer _dataLayer;
 
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        private SampleDataManager() { }
+        private SampleDataService() { }
 
         /// <summary>
         /// Creates a new instance with the provided data layer.
         /// </summary>
         /// <param name="dataLayer">Data access layer.</param>
-        public SampleDataManager(IDataLayer dataLayer)
+        public SampleDataService(IDataLayer dataLayer)
         {
+            if (dataLayer == null)
+            {
+                throw new ArgumentNullException(nameof(dataLayer));
+            }
             _dataLayer = dataLayer;
         }
 

@@ -5,7 +5,7 @@ namespace DataGenerator.Business.Infrastructure
     /// <summary>
     /// Provides methods to load sample data and publish it to the data layer.
     /// </summary>
-    public interface ISampleDataManager
+    public interface ISampleDataService
     {
         /// <summary>
         /// Clears all items from the repository and loads the sample data.
