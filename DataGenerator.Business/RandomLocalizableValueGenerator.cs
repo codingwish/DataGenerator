@@ -21,24 +21,28 @@ namespace DataGenerator.Business
         private RandomLocalizableValueGenerator() { }
 
         /// <summary>
-        /// 
+        /// Creates a new instance with the values provided.
         /// </summary>
-        /// <param name="datalayer"></param>
+        /// <param name="data">List of localizbable values.</param>
         public RandomLocalizableValueGenerator(List<ILocalizableValue> data)
         {
             _data = data;
         }
 
+        /// <summary>
+        /// Gets a random value from the data.
+        /// </summary>
+        /// <returns>Random value.</returns>
         public object Get()
         {
             return Get(_data);
         }
 
         /// <summary>
-        /// 
+        /// Gets a random value from the data for the specified language.
         /// </summary>
-        /// <param name="isoCode"></param>
-        /// <returns></returns>
+        /// <param name="isoCode">Language IsoCode.</param>
+        /// <returns>Random value.</returns>
         public object Get(IsoCode isoCode)
         {
             var languageItems = _data.Where(d => d.IsoCode == (int)isoCode);
