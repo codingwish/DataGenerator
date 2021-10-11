@@ -1,4 +1,5 @@
-﻿using DataGenerator.Data;
+﻿using DataGenerator.Business.Infrastructure;
+using DataGenerator.Data;
 using DataGenerator.Data.Infrastructure;
 using DataGenerator.Data.Models;
 using System;
@@ -11,20 +12,42 @@ namespace DataGenerator.Business
 {
     public class PersonDataGenerator
     {
-        private readonly IDataLayer _dataLayer;
+        private readonly PersonDataGeneratorSettings _settings;
 
         private PersonDataGenerator() { }
 
-        public PersonDataGenerator(IDataLayer dataLayer)
+        public PersonDataGenerator(PersonDataGeneratorSettings settings)
         {
-
+            _settings = settings;
         }
 
-        public async Task<string> GetLastName(IsoCode isoCode)
+        public string GetFullName(IsoCode isoCode, Gender? gender)
         {
-            var lastNames = await _dataLayer.SelectRecords<LastName>("LastName");
-            var service = new LocalizableValueGenerator(lastNames.ToList<ILocalizableValue>());
-            return service.Get(isoCode).ToString();
+            if (gender == null || gender == Gender.Diverse)
+            {
+                gender = GetRandomGender();
+            }
+            string result = string.Empty;
+            if (gender == Gender.Male)
+            {
+                result += GetName(_settings.MaleNames, isoCode);
+            }
+            else if (gender == Gender.Female)
+            {
+                result += GetName(_settings.FemaleNames, isoCode);
+            }
+            result += $" {GetName(_settings.LastNames, isoCode)}";
+            return result;
+        }
+
+        public string GetName(List<ILocalizableValue> items, IsoCode isoCode)
+        {
+            return _settings.Generator.Get(items, isoCode).ToString();
+        }
+
+        private Gender GetRandomGender()
+        {
+            return (Gender)new Random().Next(1);
         }
     }
 }

@@ -79,10 +79,7 @@ namespace DataGenerator.Business
                 }
                 foreach (var value in sampleData)
                 {
-                    var item = (ILocalizableValue)Activator.CreateInstance(typeof(T));
-                    item.IsoCode = (int)isoCode;
-                    item.Value = value.ToString();
-                    await _dataLayer.InsertRecord(item.GetType().Name, item);
+                    await CreateSampeDataItemAsync<T>(isoCode, value);
                 }
                 Console.WriteLine($"{fileName} {isoCode} finished");
             }
@@ -90,6 +87,15 @@ namespace DataGenerator.Business
             {
                 Debug.WriteLine(ex);
             }
+        }
+
+        private async Task CreateSampeDataItemAsync<T>(IsoCode isoCode, object value) 
+            where T : ILocalizableValue
+        {
+            var item = (ILocalizableValue)Activator.CreateInstance(typeof(T));
+            item.IsoCode = (int)isoCode;
+            item.Value = value.ToString();
+            await _dataLayer.InsertRecord(item.GetType().Name, item);
         }
     }
 }

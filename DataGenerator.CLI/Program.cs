@@ -26,15 +26,6 @@ namespace DataGenerator.CLI
                 Console.WriteLine("Please enter command. Type /? to get help.");
                 ParseCommand(Console.ReadLine());
             }
-            //Init();
-            //manager.CreateSampleDataItem<LastName>(new System.Collections.Generic.List<object>() { "Test" }, IsoCode.FR);
-
-            //var lastNames = _dataLayer.SelectRecords<LastName>("LastName");
-            //var result = lastNames.Result.Where(ln => ln.Value == "Müller");
-            //if (result.FirstOrDefault() != null)
-            //{
-            //    Console.WriteLine(result.FirstOrDefault().Value);
-            //}
         }
 
         private static void ParseCommand(string input)
@@ -47,6 +38,9 @@ namespace DataGenerator.CLI
                 }
                 switch (input.Substring(0, 2))
                 {
+                    case "/c":
+                        CreateRandomName();
+                        break;
                     case "/i":
                         InitSampleData();
                         break;
@@ -77,6 +71,7 @@ namespace DataGenerator.CLI
         private static void ShowHelp()
         {
             Console.WriteLine("/? displays this help menu.");
+            Console.WriteLine("/c creates a randon name.");
             Console.WriteLine("/i clears the repository and loads the sample data.");
             Console.WriteLine("/q will exit the application.");
             ShowCommandPrompt();
@@ -92,8 +87,35 @@ namespace DataGenerator.CLI
                     throw new ApplicationException("Can't connect to repository.");
                 }
                 ISampleDataService manager = new SampleDataService(_dataLayer);
-                var t = Task.Run(() => manager.Init());
-                t.Wait();
+                var initializationTask = Task.Run(() => manager.Init());
+                initializationTask.Wait();
+                ShowCommandPrompt();
+            }
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+                ShowCommandPrompt();
+            }
+        }
+
+        private static void CreateRandomName()
+        {
+            try
+            {
+                _dataLayer = _dataLayer == null ? GetDataLayer() : _dataLayer;
+                if (_dataLayer == null)
+                {
+                    throw new ApplicationException("Can't connect to repository.");
+                }
+                var options = new PersonDataGeneratorSettings
+                    (
+                        new LocalizableValueGenerator(),
+                        _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ILocalizableValue>(),
+                        _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ILocalizableValue>(),
+                        _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ILocalizableValue>()
+                    );
+                var generator = new PersonDataGenerator(options);
+                Console.WriteLine(generator.GetFullName(IsoCode.DE, Gender.Male));
                 ShowCommandPrompt();
             }
             catch (Exception exception)

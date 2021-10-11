@@ -1,4 +1,5 @@
-﻿using DataGenerator.Data;
+﻿using DataGenerator.Business.Infrastructure;
+using DataGenerator.Data;
 using DataGenerator.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -9,31 +10,24 @@ namespace DataGenerator.Business
     /// <summary>
     /// Gets a random value from a list of localizable items.
     /// </summary>
-    public class LocalizableValueGenerator
+    public class LocalizableValueGenerator : ILocalizableValueGenerator
     {
-        private readonly List<ILocalizableValue> _data;
-
         /// <summary>
         /// Internal constructor.
         /// </summary>
-        private LocalizableValueGenerator() { }
-
-        /// <summary>
-        /// Creates a new instance with the values provided.
-        /// </summary>
-        /// <param name="data">List of localizbable values.</param>
-        public LocalizableValueGenerator(List<ILocalizableValue> data)
-        {
-            _data = data;
-        }
+        public LocalizableValueGenerator() { }
 
         /// <summary>
         /// Gets a random value from the data.
         /// </summary>
         /// <returns>Random value.</returns>
-        public object Get()
+        public object Get(List<ILocalizableValue> data)
         {
-            return Get(_data);
+            if (data == null || data.Count <= 0)
+            {
+                return null;
+            }
+            return data[new Random().Next(data.Count)].Value;
         }
 
         /// <summary>
@@ -41,19 +35,10 @@ namespace DataGenerator.Business
         /// </summary>
         /// <param name="isoCode">Language IsoCode.</param>
         /// <returns>Random value.</returns>
-        public object Get(IsoCode isoCode)
+        public object Get(List<ILocalizableValue> data, IsoCode isoCode)
         {
-            IEnumerable<ILocalizableValue> languageItems = _data.Where(d => d.IsoCode == (int)isoCode);
+            IEnumerable<ILocalizableValue> languageItems = data.Where(d => d.IsoCode == (int)isoCode);
             return Get(languageItems.ToList());
-        }
-
-        private object Get(List<ILocalizableValue> data)
-        {
-            if (data == null || data.Count <= 0)
-            {
-                return null;
-            }
-            return data[new Random().Next(data.Count)];
         }
     }
 }
