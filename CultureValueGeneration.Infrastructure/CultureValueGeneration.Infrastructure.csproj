@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>DataGenerator.Business.CultureValueGeneration.Infrastructure</AssemblyName>
+    <RootNamespace>DataGenerator.Business.CultureValueGeneration.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

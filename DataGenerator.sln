@@ -11,25 +11,29 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataGenerator.Business", "D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{C1FFB068-73BE-4226-856A-073CBC56D86D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataModels.Infrastructure", "DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj", "{325D9D12-14E1-44AA-948E-E57FC8557D80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels.Infrastructure", "DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj", "{325D9D12-14E1-44AA-948E-E57FC8557D80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{64370A07-A602-45C7-B3FC-7165626134E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{64370A07-A602-45C7-B3FC-7165626134E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess.Infrastructure", "DataAccess.Infrastructure\DataAccess.Infrastructure.csproj", "{15C2BB25-3B6E-42FB-B4B6-8237F161FB5D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess.Infrastructure", "DataAccess.Infrastructure\DataAccess.Infrastructure.csproj", "{15C2BB25-3B6E-42FB-B4B6-8237F161FB5D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleData", "SampleData\SampleData.csproj", "{D1658605-1969-4D78-B3A0-82488C7638AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleData", "SampleData\SampleData.csproj", "{D1658605-1969-4D78-B3A0-82488C7638AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleData.Infrastructure", "SampleData.Infrastructure\SampleData.Infrastructure.csproj", "{EA4B58A8-73AF-49FC-B7DD-F4E7F839B17C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleData.Infrastructure", "SampleData.Infrastructure\SampleData.Infrastructure.csproj", "{EA4B58A8-73AF-49FC-B7DD-F4E7F839B17C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalDataGeneration", "PersonalDataGeneration\PersonalDataGeneration.csproj", "{0CF0BABA-B13F-4F3A-8FB3-2B376A990915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalDataGeneration", "PersonalDataGeneration\PersonalDataGeneration.csproj", "{0CF0BABA-B13F-4F3A-8FB3-2B376A990915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalDataGeneration.Infrastructure", "PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj", "{2F25B9CB-8586-439A-83FA-886EBF45D2BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalDataGeneration.Infrastructure", "PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj", "{2F25B9CB-8586-439A-83FA-886EBF45D2BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CultureValueGeneration", "CultureValueGenerator\CultureValueGeneration.csproj", "{B4DDF1E1-C788-4607-BA6E-170B34F3D37F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CultureValueGeneration", "CultureValueGenerator\CultureValueGeneration.csproj", "{B4DDF1E1-C788-4607-BA6E-170B34F3D37F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CultureValueGeneration.Infrastructure", "CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj", "{BDDD635C-722A-49A0-AE38-9C1500714F69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CultureValueGeneration.Infrastructure", "CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj", "{BDDD635C-722A-49A0-AE38-9C1500714F69}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A8D1ADEC-7CF7-4EFE-97DD-B662C73D047F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Container", "Container\Container.csproj", "{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +89,10 @@ Global
 		{BDDD635C-722A-49A0-AE38-9C1500714F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BDDD635C-722A-49A0-AE38-9C1500714F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BDDD635C-722A-49A0-AE38-9C1500714F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +109,7 @@ Global
 		{2F25B9CB-8586-439A-83FA-886EBF45D2BA} = {61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}
 		{B4DDF1E1-C788-4607-BA6E-170B34F3D37F} = {61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}
 		{BDDD635C-722A-49A0-AE38-9C1500714F69} = {61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}
+		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1} = {A8D1ADEC-7CF7-4EFE-97DD-B662C73D047F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C213DC3F-32C3-4E52-B9F6-1EA8DAAB50A0}

@@ -7,6 +7,7 @@ using DataGenerator.Data.DataAccess;
 using DataGenerator.Data.DataAccess.Infrastructure;
 using DataGenerator.Data.DataModels;
 using DataGenerator.Data.DataModels.Infrastructure;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -174,6 +175,13 @@ namespace DataGenerator.CLI
                 Console.WriteLine(ex.ToString());
                 return false;
             }
+        }
+
+        static ServiceProvider GetContainer()
+        {
+            var services = new ServiceCollection();
+            services.AddTransient<IGreetingService, GreetingService>();
+            return services.BuildServiceProvider();
         }
     }
 }
