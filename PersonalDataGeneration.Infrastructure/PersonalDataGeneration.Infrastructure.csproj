@@ -6,4 +6,9 @@
     <RootNamespace>DataGenerator.Business.PersonalDataGeneration.Infrastructure</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

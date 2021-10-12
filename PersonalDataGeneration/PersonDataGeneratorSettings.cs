@@ -1,10 +1,11 @@
 ﻿using DataGenerator.Business.CultureValueGeneration.Infrastructure;
+using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
 using DataGenerator.Data.DataModels.Infrastructure;
 using System.Collections.Generic;
 
 namespace DataGenerator.Business.PersonalDataGeneration
 {
-    public class PersonDataGeneratorSettings
+    public class PersonDataGeneratorOptions : IPersonDataGeneratorOptions
     {
         public ICultureValueGenerator Generator { get; private set; }
 
@@ -14,7 +15,7 @@ namespace DataGenerator.Business.PersonalDataGeneration
 
         public List<ICultureValue> LastNames { get; private set; }
 
-        public PersonDataGeneratorSettings(
+        public PersonDataGeneratorOptions(
             ICultureValueGenerator generator,
             List<ICultureValue> maleNames,
             List<ICultureValue> femaleNames,

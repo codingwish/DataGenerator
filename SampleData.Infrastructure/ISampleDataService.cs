@@ -11,6 +11,6 @@ namespace DataGenerator.Business.SampleData.Infrastructure
         /// <summary>
         /// Clears all items from the repository and loads the sample data.
         /// </summary>
-        Task Init();
+        Task Init(IDataFileReader fileReader);
     }
 }

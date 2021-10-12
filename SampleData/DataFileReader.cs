@@ -12,6 +12,11 @@ namespace DataGenerator.Business
     /// </summary>
     public class DataFileReader : IDataFileReader
     {
+        /// <summary>
+        /// Creates a new instance of the data fíle reader.
+        /// </summary>
+        public DataFileReader() { }
+
         /// <inheritdoc />
         public async Task<List<object>> ReadAsync(string fileName)
         {

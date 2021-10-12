@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj" />
-    <ProjectReference Include="..\DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj" />
     <ProjectReference Include="..\PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj" />
   </ItemGroup>
 

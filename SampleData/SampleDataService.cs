@@ -33,16 +33,15 @@ namespace DataGenerator.Business
         }
 
         /// <inheritdoc />
-        public async Task Init()
+        public async Task Init(IDataFileReader fileReader)
         {
             await Reset();
-            await Load();
+            await Load(fileReader);
         }
 
-        private async Task Load()
+        private async Task Load(IDataFileReader fileReader)
         {
             List<Task> tasks = new List<Task>();
-            var fileReader = new DataFileReader();
             foreach (IsoCode isoCode in Enum.GetValues(typeof(IsoCode)))
             {
                 tasks.Add(CreateSampleDataItemsAsync<LastName>(fileReader, "LastNames", isoCode));

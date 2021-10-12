@@ -1,13 +1,10 @@
-﻿using DataGenerator.Business;
-using DataGenerator.Business.CultureValueGeneration;
-using DataGenerator.Business.PersonalDataGeneration;
+﻿using DataGenerator.Business.PersonalDataGeneration;
 using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
 using DataGenerator.Business.SampleData.Infrastructure;
-using DataGenerator.Data.DataAccess;
+using DataGenerator.Core.Container;
 using DataGenerator.Data.DataAccess.Infrastructure;
 using DataGenerator.Data.DataModels;
 using DataGenerator.Data.DataModels.Infrastructure;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,9 +14,11 @@ namespace DataGenerator.CLI
     class Program
     {
         private static IDataLayer _dataLayer;
+        private static ComponentFactory _factory;
 
         static void Main(string[] args)
         {
+            _factory = new ComponentFactory();
             if (args != null && args.Length > 0)
             {
                 ParseCommand(args[0]);
@@ -89,8 +88,8 @@ namespace DataGenerator.CLI
                 {
                     throw new ApplicationException("Can't connect to repository.");
                 }
-                ISampleDataService manager = new SampleDataService(_dataLayer);
-                var initializationTask = Task.Run(() => manager.Init());
+                ISampleDataService manager = _factory.CreateSampleDataService(_dataLayer);
+                Task initializationTask = Task.Run(() => manager.Init(_factory.CreateDataFileReader()));
                 initializationTask.Wait();
                 ShowCommandPrompt();
             }
@@ -110,14 +109,14 @@ namespace DataGenerator.CLI
                 {
                     throw new ApplicationException("Can't connect to repository.");
                 }
-                var options = new PersonDataGeneratorSettings
+                IPersonDataGeneratorOptions options = _factory.CreatePersonalDataGeneratorOptions
                     (
-                        new CultureValueGenerator(),
+                        _factory.CreateCultureValueGenerator(),
                         _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ICultureValue>()
                     );
-                var generator = new PersonDataGenerator(options);
+                PersonDataGenerator generator = new PersonDataGenerator(options);
                 Console.WriteLine(generator.GetFullName(IsoCode.DE, Gender.Male));
                 ShowCommandPrompt();
             }
@@ -132,19 +131,19 @@ namespace DataGenerator.CLI
         {
             try
             {
-                Console.WriteLine("Enter connection string or /c to cancel:");
+                Console.WriteLine("Enter connection string or /a to cancel:");
                 string connectionString = Console.ReadLine();
-                if (connectionString == "/c")
+                if (connectionString == "/a")
                 {
                     return null;
                 }
-                IDataLayer dataLayer = new CosmosDataLayer();
+                IDataLayer dataLayer = _factory.CreateDataLayer();
                 bool result = Connect(dataLayer, connectionString);
                 while (result == false)
                 {
-                    Console.WriteLine("Enter connection string or /c to cancel:");
+                    Console.WriteLine("Enter connection string or /a to cancel:");
                     connectionString = Console.ReadLine();
-                    if (connectionString == "/c")
+                    if (connectionString == "/a")
                     {
                         return null;
                     }
@@ -175,13 +174,6 @@ namespace DataGenerator.CLI
                 Console.WriteLine(ex.ToString());
                 return false;
             }
-        }
-
-        static ServiceProvider GetContainer()
-        {
-            var services = new ServiceCollection();
-            services.AddTransient<IGreetingService, GreetingService>();
-            return services.BuildServiceProvider();
         }
     }
 }

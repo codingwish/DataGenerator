@@ -5,13 +5,13 @@ using System.Collections.Generic;
 
 namespace DataGenerator.Business.PersonalDataGeneration
 {
-    public class PersonDataGenerator
+    public class PersonDataGenerator : IPersonDataGenerator
     {
-        private readonly PersonDataGeneratorSettings _settings;
+        private readonly IPersonDataGeneratorOptions _settings;
 
         private PersonDataGenerator() { }
 
-        public PersonDataGenerator(PersonDataGeneratorSettings settings)
+        public PersonDataGenerator(IPersonDataGeneratorOptions settings)
         {
             _settings = settings;
         }
