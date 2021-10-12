@@ -3,6 +3,7 @@ using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,8 +25,9 @@ namespace DataGenerator.Data.DataAccess
                 _dataBase = client.CreateDatabaseIfNotExistsAsync("data").Result;
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex);
                 throw;
             }
 
