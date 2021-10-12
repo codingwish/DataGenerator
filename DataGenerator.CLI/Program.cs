@@ -9,7 +9,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataGenerator.CLI
+namespace DataGenerator.UI.CLI
 {
     class Program
     {

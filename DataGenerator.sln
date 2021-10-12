@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataGenerator.CLI", "DataGenerator.CLI\DataGenerator.CLI.csproj", "{30A027F0-F7CF-4E21-B820-FD12BEAE1A29}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CLI", "DataGenerator.CLI\CLI.csproj", "{30A027F0-F7CF-4E21-B820-FD12BEAE1A29}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataModels", "DataGenerator.Data\DataModels.csproj", "{B0D58668-EE44-40BF-868B-55B1173186AB}"
 EndProject
@@ -36,6 +36,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CultureValueGeneration.Tests", "CultureValueGeneration.Tests\CultureValueGeneration.Tests.csproj", "{C64DBD04-9AFE-45EA-96AE-1FBEE44FFC16}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalDataGeneration.Tests", "PersonalDataGeneration.Tests\PersonalDataGeneration.Tests.csproj", "{B45D6351-E55D-4F91-9C07-F26535E0D38C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{BF465712-B154-4D73-A77F-1A4AC3B7855F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +106,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{30A027F0-F7CF-4E21-B820-FD12BEAE1A29} = {BF465712-B154-4D73-A77F-1A4AC3B7855F}
 		{B0D58668-EE44-40BF-868B-55B1173186AB} = {C1FFB068-73BE-4226-856A-073CBC56D86D}
 		{325D9D12-14E1-44AA-948E-E57FC8557D80} = {C1FFB068-73BE-4226-856A-073CBC56D86D}
 		{64370A07-A602-45C7-B3FC-7165626134E5} = {C1FFB068-73BE-4226-856A-073CBC56D86D}
