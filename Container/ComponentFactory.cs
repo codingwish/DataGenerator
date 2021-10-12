@@ -11,18 +11,18 @@ using System.Collections.Generic;
 
 namespace DataGenerator.Core.Container
 {
-    public class ComponentFactory
+    public static class ComponentFactory
     {
 
-        public IDataLayer CreateDataLayer() => new CosmosDataLayer();
+        public static IDataLayer CreateDataLayer() => new CosmosDataLayer();
 
-        public IDataFileReader CreateDataFileReader() => new DataFileReader();
+        public static IDataFileReader CreateDataFileReader() => new DataFileReader();
 
-        public ISampleDataService CreateSampleDataService(IDataLayer dataLayer) => new SampleDataService(dataLayer);
+        public static ISampleDataService CreateSampleDataService(IDataLayer dataLayer) => new SampleDataService(dataLayer);
 
-        public IPersonDataGenerator CreatePersonalDataGenerator(IPersonDataGeneratorOptions settings) => new PersonDataGenerator(settings);
+        public static IPersonDataGenerator CreatePersonalDataGenerator(IPersonDataGeneratorOptions settings) => new PersonDataGenerator(settings);
 
-        public IPersonDataGeneratorOptions CreatePersonalDataGeneratorOptions
+        public static IPersonDataGeneratorOptions CreatePersonalDataGeneratorOptions
             (
                 ICultureValueGenerator generator, 
                 List<ICultureValue> lastNames,
@@ -30,6 +30,6 @@ namespace DataGenerator.Core.Container
                 List<ICultureValue> femaleNames
             ) => new PersonDataGeneratorOptions(generator, lastNames, maleNames, femaleNames);
 
-        public ICultureValueGenerator CreateCultureValueGenerator() => new CultureValueGenerator();
+        public static ICultureValueGenerator CreateCultureValueGenerator() => new CultureValueGenerator();
     }
 }

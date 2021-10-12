@@ -14,11 +14,9 @@ namespace DataGenerator.CLI
     class Program
     {
         private static IDataLayer _dataLayer;
-        private static ComponentFactory _factory;
 
         static void Main(string[] args)
         {
-            _factory = new ComponentFactory();
             if (args != null && args.Length > 0)
             {
                 ParseCommand(args[0]);
@@ -88,8 +86,8 @@ namespace DataGenerator.CLI
                 {
                     throw new ApplicationException("Can't connect to repository.");
                 }
-                ISampleDataService manager = _factory.CreateSampleDataService(_dataLayer);
-                Task initializationTask = Task.Run(() => manager.Init(_factory.CreateDataFileReader()));
+                ISampleDataService manager = ComponentFactory.CreateSampleDataService(_dataLayer);
+                Task initializationTask = Task.Run(() => manager.Init(ComponentFactory.CreateDataFileReader()));
                 initializationTask.Wait();
                 ShowCommandPrompt();
             }
@@ -109,9 +107,9 @@ namespace DataGenerator.CLI
                 {
                     throw new ApplicationException("Can't connect to repository.");
                 }
-                IPersonDataGeneratorOptions options = _factory.CreatePersonalDataGeneratorOptions
+                IPersonDataGeneratorOptions options = ComponentFactory.CreatePersonalDataGeneratorOptions
                     (
-                        _factory.CreateCultureValueGenerator(),
+                        ComponentFactory.CreateCultureValueGenerator(),
                         _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ICultureValue>()
@@ -137,7 +135,7 @@ namespace DataGenerator.CLI
                 {
                     return null;
                 }
-                IDataLayer dataLayer = _factory.CreateDataLayer();
+                IDataLayer dataLayer = ComponentFactory.CreateDataLayer();
                 bool result = Connect(dataLayer, connectionString);
                 while (result == false)
                 {
