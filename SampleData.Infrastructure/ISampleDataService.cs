@@ -1,6 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using DataGenerator.Data.DataModels.Infrastructure;
+using System.Threading.Tasks;
 
-namespace DataGenerator.Business.Infrastructure
+namespace DataGenerator.Business.SampleData.Infrastructure
 {
     /// <summary>
     /// Provides methods to load sample data and publish it to the data layer.

@@ -6,8 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CultureValueGenerator\CultureValueGeneration.csproj" />
+    <ProjectReference Include="..\DataAccess.Infrastructure\DataAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
     <ProjectReference Include="..\DataGenerator.Business\DataGenerator.Business.csproj" />
-    <ProjectReference Include="..\DataGenerator.Data\DataGenerator.Data.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data\DataModels.csproj" />
+    <ProjectReference Include="..\PersonalDataGeneration\PersonalDataGeneration.csproj" />
+    <ProjectReference Include="..\SampleData.Infrastructure\SampleData.Infrastructure.csproj" />
+    <ProjectReference Include="..\SampleData\SampleData.csproj" />
   </ItemGroup>
 
 </Project>

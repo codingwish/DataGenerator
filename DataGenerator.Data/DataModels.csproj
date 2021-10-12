@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>DataGenerator.Data.DataModels</AssemblyName>
+    <RootNamespace>DataGenerator.Data.DataModels</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,10 +1,12 @@
 ﻿using DataGenerator.Business;
-using DataGenerator.Business.Infrastructure;
-using DataGenerator.Data;
+using DataGenerator.Business.CultureValueGeneration;
+using DataGenerator.Business.PersonalDataGeneration;
+using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
+using DataGenerator.Business.SampleData.Infrastructure;
 using DataGenerator.Data.DataAccess;
-using DataGenerator.Data.Infrastructure;
-using DataGenerator.Data.Models;
-using Microsoft.Azure.Cosmos;
+using DataGenerator.Data.DataAccess.Infrastructure;
+using DataGenerator.Data.DataModels;
+using DataGenerator.Data.DataModels.Infrastructure;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -109,10 +111,10 @@ namespace DataGenerator.CLI
                 }
                 var options = new PersonDataGeneratorSettings
                     (
-                        new LocalizableValueGenerator(),
-                        _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ILocalizableValue>(),
-                        _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ILocalizableValue>(),
-                        _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ILocalizableValue>()
+                        new CultureValueGenerator(),
+                        _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ICultureValue>(),
+                        _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ICultureValue>(),
+                        _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ICultureValue>()
                     );
                 var generator = new PersonDataGenerator(options);
                 Console.WriteLine(generator.GetFullName(IsoCode.DE, Gender.Male));
@@ -136,7 +138,7 @@ namespace DataGenerator.CLI
                     return null;
                 }
                 IDataLayer dataLayer = new CosmosDataLayer();
-                var result = Connect(dataLayer, connectionString);
+                bool result = Connect(dataLayer, connectionString);
                 while (result == false)
                 {
                     Console.WriteLine("Enter connection string or /c to cancel:");

@@ -1,12 +1,12 @@
-﻿namespace DataGenerator.Data.Infrastructure
+﻿namespace DataGenerator.Data.DataModels.Infrastructure
 {
     /// <summary>
-    /// Provides a value for a specific language IsoCode.
+    /// Provides a value for a specific culture IsoCode.
     /// </summary>
-    public interface ILocalizableValue
+    public interface ICultureValue
     {
         /// <summary>
-        /// Language iso code.
+        /// Culture iso code.
         /// </summary>
         int IsoCode { get; set; }
 

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DataGenerator.Data.Infrastructure
+namespace DataGenerator.Data.DataAccess.Infrastructure
 {
     /// <summary>
     /// Data access layer.

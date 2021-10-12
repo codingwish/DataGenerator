@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>DataGenerator.Business.SampleData</AssemblyName>
+    <RootNamespace>DataGenerator.Business.SampleData</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataAccess.Infrastructure\DataAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data\DataModels.csproj" />
+    <ProjectReference Include="..\SampleData.Infrastructure\SampleData.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

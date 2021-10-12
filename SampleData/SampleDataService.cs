@@ -1,12 +1,10 @@
-﻿using DataGenerator.Business.Infrastructure;
-using DataGenerator.Data;
-using DataGenerator.Data.Infrastructure;
-using DataGenerator.Data.Models;
+﻿using DataGenerator.Business.SampleData.Infrastructure;
+using DataGenerator.Data.DataAccess.Infrastructure;
+using DataGenerator.Data.DataModels;
+using DataGenerator.Data.DataModels.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataGenerator.Business
@@ -43,8 +41,8 @@ namespace DataGenerator.Business
 
         private async Task Load()
         {
-            var tasks = new List<Task>();
-            var fileReader = new SampleDataFileReader();
+            List<Task> tasks = new List<Task>();
+            var fileReader = new DataFileReader();
             foreach (IsoCode isoCode in Enum.GetValues(typeof(IsoCode)))
             {
                 tasks.Add(CreateSampleDataItemsAsync<LastName>(fileReader, "LastNames", isoCode));
@@ -53,7 +51,7 @@ namespace DataGenerator.Business
             }
             while (tasks.Count > 0)
             {
-                var task = await Task.WhenAny(tasks);
+                Task task = await Task.WhenAny(tasks);
                 tasks.Remove(task);
                 Debug.WriteLine($"{tasks.Count} remaining.");
             }
@@ -66,8 +64,8 @@ namespace DataGenerator.Business
             await _dataLayer.Delete("FemaleName");
         }
 
-        private async Task CreateSampleDataItemsAsync<T>(SampleDataFileReader fileReader, string fileName, IsoCode isoCode)
-            where T : ILocalizableValue
+        private async Task CreateSampleDataItemsAsync<T>(IDataFileReader fileReader, string fileName, IsoCode isoCode)
+            where T : ICultureValue
         {
             try
             {
@@ -89,10 +87,10 @@ namespace DataGenerator.Business
             }
         }
 
-        private async Task CreateSampeDataItemAsync<T>(IsoCode isoCode, object value) 
-            where T : ILocalizableValue
+        private async Task CreateSampeDataItemAsync<T>(IsoCode isoCode, object value)
+            where T : ICultureValue
         {
-            var item = (ILocalizableValue)Activator.CreateInstance(typeof(T));
+            var item = (ICultureValue)Activator.CreateInstance(typeof(T));
             item.IsoCode = (int)isoCode;
             item.Value = value.ToString();
             await _dataLayer.InsertRecord(item.GetType().Name, item);

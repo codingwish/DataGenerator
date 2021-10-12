@@ -1,14 +1,9 @@
-﻿using DataGenerator.Business.Infrastructure;
-using DataGenerator.Data;
-using DataGenerator.Data.Infrastructure;
-using DataGenerator.Data.Models;
+﻿using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
+using DataGenerator.Data.DataModels.Infrastructure;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace DataGenerator.Business
+namespace DataGenerator.Business.PersonalDataGeneration
 {
     public class PersonDataGenerator
     {
@@ -40,7 +35,7 @@ namespace DataGenerator.Business
             return result;
         }
 
-        public string GetName(List<ILocalizableValue> items, IsoCode isoCode)
+        public string GetName(List<ICultureValue> items, IsoCode isoCode)
         {
             return _settings.Generator.Get(items, isoCode).ToString();
         }

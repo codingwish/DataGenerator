@@ -1,27 +1,26 @@
-﻿using DataGenerator.Business.Infrastructure;
-using DataGenerator.Data;
-using DataGenerator.Data.Infrastructure;
+﻿using DataGenerator.Business.CultureValueGeneration.Infrastructure;
+using DataGenerator.Data.DataModels.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataGenerator.Business
+namespace DataGenerator.Business.CultureValueGeneration
 {
     /// <summary>
     /// Gets a random value from a list of localizable items.
     /// </summary>
-    public class LocalizableValueGenerator : ILocalizableValueGenerator
+    public class CultureValueGenerator : ICultureValueGenerator
     {
         /// <summary>
-        /// Internal constructor.
+        /// Creates a new instance of the generator.
         /// </summary>
-        public LocalizableValueGenerator() { }
+        public CultureValueGenerator() { }
 
         /// <summary>
         /// Gets a random value from the data.
         /// </summary>
         /// <returns>Random value.</returns>
-        public object Get(List<ILocalizableValue> data)
+        public object Get(List<ICultureValue> data)
         {
             if (data == null || data.Count <= 0)
             {
@@ -35,9 +34,9 @@ namespace DataGenerator.Business
         /// </summary>
         /// <param name="isoCode">Language IsoCode.</param>
         /// <returns>Random value.</returns>
-        public object Get(List<ILocalizableValue> data, IsoCode isoCode)
+        public object Get(List<ICultureValue> data, IsoCode isoCode)
         {
-            IEnumerable<ILocalizableValue> languageItems = data.Where(d => d.IsoCode == (int)isoCode);
+            IEnumerable<ICultureValue> languageItems = data.Where(d => d.IsoCode == (int)isoCode);
             return Get(languageItems.ToList());
         }
     }

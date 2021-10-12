@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataGenerator.Data
+namespace DataGenerator.Data.DataModels.Infrastructure
 {
     /// <summary>
     /// Two-letter iso codes for supported languages.

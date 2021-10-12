@@ -1,10 +1,9 @@
-﻿using DataGenerator.Data.Infrastructure;
+﻿using DataGenerator.Data.DataAccess.Infrastructure;
 using Microsoft.Azure.Cosmos;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DataGenerator.Data.DataAccess
@@ -21,7 +20,7 @@ namespace DataGenerator.Data.DataAccess
         {
             try
             {
-                var client = new CosmosClient(connectionString);
+                CosmosClient client = new CosmosClient(connectionString);
                 _dataBase = client.CreateDatabaseIfNotExistsAsync("data").Result;
                 return true;
             }
@@ -37,8 +36,8 @@ namespace DataGenerator.Data.DataAccess
         {
             try
             {
-                var container = await GetContainerAsync(containerName);
-                var cosmosDbItem = CreateCosmosDbItem(item);
+                Container container = await GetContainerAsync(containerName);
+                object cosmosDbItem = CreateCosmosDbItem(item);
                 await container.CreateItemAsync(cosmosDbItem);
             }
             catch (Exception)
@@ -50,10 +49,10 @@ namespace DataGenerator.Data.DataAccess
         /// <inheritdoc />
         public async Task<List<T>> SelectRecords<T>(string containerName)
         {
-            var result = new List<T>();
-            var container = await GetContainerAsync(containerName);
-            var queryResult = container.GetItemLinqQueryable<T>(true);
-            foreach (var item in queryResult)
+            List<T> result = new List<T>();
+            Container container = await GetContainerAsync(containerName);
+            IOrderedQueryable<T> queryResult = container.GetItemLinqQueryable<T>(true);
+            foreach (T item in queryResult)
             {
                 result.Add(item);
             }
@@ -69,7 +68,7 @@ namespace DataGenerator.Data.DataAccess
         /// <inheritdoc />
         public async Task<bool> Delete(string containerName)
         {
-            var container = await GetContainerAsync(containerName);
+            Container container = await GetContainerAsync(containerName);
             await container.DeleteContainerAsync();
             Console.WriteLine($"{containerName} deleted");
             await GetContainerAsync(containerName);
@@ -79,7 +78,7 @@ namespace DataGenerator.Data.DataAccess
         /// <inheritdoc />
         public async Task Delete<T>(string containerName, object key)
         {
-            var container = await GetContainerAsync(containerName);
+            Container container = await GetContainerAsync(containerName);
             await container.DeleteItemAsync<T>(key.ToString(), new PartitionKey("/id"));
             Console.WriteLine($"{containerName} Item {key} deleted");
         }
