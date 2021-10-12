@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleData", "SampleData\Sa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleData.Infrastructure", "SampleData.Infrastructure\SampleData.Infrastructure.csproj", "{EA4B58A8-73AF-49FC-B7DD-F4E7F839B17C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalDataGeneration", "PersonalDataGeneration\PersonalDataGeneration.csproj", "{0CF0BABA-B13F-4F3A-8FB3-2B376A990915}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonDetailsGeneration", "PersonDetailsGeneration\PersonDetailsGeneration.csproj", "{0CF0BABA-B13F-4F3A-8FB3-2B376A990915}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonalDataGeneration.Infrastructure", "PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj", "{2F25B9CB-8586-439A-83FA-886EBF45D2BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonDetailsGeneration.Infrastructure", "PersonDetailsGeneration.Infrastructure\PersonDetailsGeneration.Infrastructure.csproj", "{2F25B9CB-8586-439A-83FA-886EBF45D2BA}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CultureValueGeneration", "CultureValueGenerator\CultureValueGeneration.csproj", "{B4DDF1E1-C788-4607-BA6E-170B34F3D37F}"
 EndProject
@@ -33,11 +33,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{A8D1ADEC-7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Container", "Container\Container.csproj", "{FC5D174E-4847-4E4A-BC10-F3675E39B2C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CultureValueGeneration.Tests", "CultureValueGeneration.Tests\CultureValueGeneration.Tests.csproj", "{C64DBD04-9AFE-45EA-96AE-1FBEE44FFC16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CultureValueGeneration.Tests", "CultureValueGeneration.Tests\CultureValueGeneration.Tests.csproj", "{C64DBD04-9AFE-45EA-96AE-1FBEE44FFC16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonalDataGeneration.Tests", "PersonalDataGeneration.Tests\PersonalDataGeneration.Tests.csproj", "{B45D6351-E55D-4F91-9C07-F26535E0D38C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonDetailsGeneration.Tests", "PersonDetailsGeneration.Tests\PersonDetailsGeneration.Tests.csproj", "{B45D6351-E55D-4F91-9C07-F26535E0D38C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{BF465712-B154-4D73-A77F-1A4AC3B7855F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{954EE9FD-1900-4CDE-904B-661F62FB5805}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -101,6 +103,10 @@ Global
 		{B45D6351-E55D-4F91-9C07-F26535E0D38C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45D6351-E55D-4F91-9C07-F26535E0D38C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45D6351-E55D-4F91-9C07-F26535E0D38C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{954EE9FD-1900-4CDE-904B-661F62FB5805}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{954EE9FD-1900-4CDE-904B-661F62FB5805}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{954EE9FD-1900-4CDE-904B-661F62FB5805}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{954EE9FD-1900-4CDE-904B-661F62FB5805}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +126,7 @@ Global
 		{FC5D174E-4847-4E4A-BC10-F3675E39B2C1} = {A8D1ADEC-7CF7-4EFE-97DD-B662C73D047F}
 		{C64DBD04-9AFE-45EA-96AE-1FBEE44FFC16} = {61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}
 		{B45D6351-E55D-4F91-9C07-F26535E0D38C} = {61BAFC1A-2F74-41C4-AF45-E9AF9919B06E}
+		{954EE9FD-1900-4CDE-904B-661F62FB5805} = {BF465712-B154-4D73-A77F-1A4AC3B7855F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C213DC3F-32C3-4E52-B9F6-1EA8DAAB50A0}

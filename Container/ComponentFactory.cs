@@ -1,8 +1,8 @@
 ﻿using DataGenerator.Business;
 using DataGenerator.Business.CultureValueGeneration;
 using DataGenerator.Business.CultureValueGeneration.Infrastructure;
-using DataGenerator.Business.PersonalDataGeneration;
-using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
+using DataGenerator.Business.PersonDetailsGeneration;
+using DataGenerator.Business.PersonDetailsGeneration.Infrastructure;
 using DataGenerator.Business.SampleData.Infrastructure;
 using DataGenerator.Data.DataAccess;
 using DataGenerator.Data.DataAccess.Infrastructure;
@@ -20,15 +20,15 @@ namespace DataGenerator.Core.Container
 
         public static ISampleDataService CreateSampleDataService(IDataLayer dataLayer) => new SampleDataService(dataLayer);
 
-        public static IPersonDataGenerator CreatePersonalDataGenerator(IPersonDataGeneratorOptions settings) => new PersonDataGenerator(settings);
+        public static IPersonDetailsGenerator CreatePersonDetailsGenerator(IPersonDetailsGeneratorOptions settings) => new PersonDetailsGenerator(settings);
 
-        public static IPersonDataGeneratorOptions CreatePersonalDataGeneratorOptions
+        public static IPersonDetailsGeneratorOptions CreatePersonDetailsGeneratorOptions
             (
                 ICultureValueGenerator generator, 
-                List<ICultureValue> lastNames,
                 List<ICultureValue> maleNames,
-                List<ICultureValue> femaleNames
-            ) => new PersonDataGeneratorOptions(generator, lastNames, maleNames, femaleNames);
+                List<ICultureValue> femaleNames,
+                List<ICultureValue> lastNames
+            ) => new PersonDetailsGeneratorOptions(generator, maleNames, femaleNames, lastNames);
 
         public static ICultureValueGenerator CreateCultureValueGenerator() => new CultureValueGenerator();
     }

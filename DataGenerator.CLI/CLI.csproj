@@ -8,12 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Container\Container.csproj" />
     <ProjectReference Include="..\DataAccess.Infrastructure\DataAccess.Infrastructure.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration.Infrastructure\PersonDetailsGeneration.Infrastructure.csproj" />
     <ProjectReference Include="..\SampleData.Infrastructure\SampleData.Infrastructure.csproj" />
   </ItemGroup>
 

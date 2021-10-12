@@ -1,5 +1,4 @@
-﻿using DataGenerator.Business.PersonalDataGeneration;
-using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
+﻿using DataGenerator.Business.PersonDetailsGeneration.Infrastructure;
 using DataGenerator.Business.SampleData.Infrastructure;
 using DataGenerator.Core.Container;
 using DataGenerator.Data.DataAccess.Infrastructure;
@@ -107,15 +106,16 @@ namespace DataGenerator.UI.CLI
                 {
                     throw new ApplicationException("Can't connect to repository.");
                 }
-                IPersonDataGeneratorOptions options = ComponentFactory.CreatePersonalDataGeneratorOptions
+                IPersonDetailsGeneratorOptions options = ComponentFactory.CreatePersonDetailsGeneratorOptions
                     (
                         ComponentFactory.CreateCultureValueGenerator(),
                         _dataLayer.SelectRecords<MaleName>("MaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<FemaleName>("FemaleName").Result.ToList<ICultureValue>(),
                         _dataLayer.SelectRecords<LastName>("LastName").Result.ToList<ICultureValue>()
                     );
-                PersonDataGenerator generator = new PersonDataGenerator(options);
-                Console.WriteLine(generator.GetFullName(IsoCode.DE, Gender.Male));
+                var generator = ComponentFactory.CreatePersonDetailsGenerator(options);
+                var personDetails = generator.Get(IsoCode.DE, Gender.Male);
+                Console.WriteLine($"{personDetails.FirstName} {personDetails.LastName}");
                 ShowCommandPrompt();
             }
             catch (Exception exception)

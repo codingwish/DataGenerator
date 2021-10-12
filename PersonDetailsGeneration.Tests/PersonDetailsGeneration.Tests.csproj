@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>DataGenerator.Business.PersonalDataGeneration.Tests</AssemblyName>
+    <AssemblyName>DataGenerator.Business.PersonDetailsGeneration.Tests</AssemblyName>
 
-    <RootNamespace>DataGenerator.Business.PersonalDataGeneration.Tests</RootNamespace>
+    <RootNamespace>DataGenerator.Business.PersonDetailsGeneration.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,8 +25,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Container\Container.csproj" />
-    <ProjectReference Include="..\PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj" />
-    <ProjectReference Include="..\PersonalDataGeneration\PersonalDataGeneration.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration.Infrastructure\PersonDetailsGeneration.Infrastructure.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration\PersonDetailsGeneration.csproj" />
   </ItemGroup>
 
 </Project>

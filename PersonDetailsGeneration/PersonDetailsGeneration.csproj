@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AssemblyName>DataGenerator.Business.PersonDetailsGeneration</AssemblyName>
+    <RootNamespace>DataGenerator.Business.PersonDetailsGeneration</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data\DataModels.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration.Infrastructure\PersonDetailsGeneration.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

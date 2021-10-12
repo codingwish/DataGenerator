@@ -1,4 +1,4 @@
-﻿namespace DataGenerator.Business.PersonalDataGeneration.Infrastructure
+﻿namespace DataGenerator.Data.DataModels.Infrastructure
 {
     /// <summary>
     /// Persons gender.

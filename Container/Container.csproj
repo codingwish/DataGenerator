@@ -13,8 +13,8 @@
   <ItemGroup>
     <ProjectReference Include="..\CultureValueGenerator\CultureValueGeneration.csproj" />
     <ProjectReference Include="..\DataAccess\DataAccess.csproj" />
-    <ProjectReference Include="..\PersonalDataGeneration.Infrastructure\PersonalDataGeneration.Infrastructure.csproj" />
-    <ProjectReference Include="..\PersonalDataGeneration\PersonalDataGeneration.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration.Infrastructure\PersonDetailsGeneration.Infrastructure.csproj" />
+    <ProjectReference Include="..\PersonDetailsGeneration\PersonDetailsGeneration.csproj" />
     <ProjectReference Include="..\SampleData.Infrastructure\SampleData.Infrastructure.csproj" />
     <ProjectReference Include="..\SampleData\SampleData.csproj" />
   </ItemGroup>
