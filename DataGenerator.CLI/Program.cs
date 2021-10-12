@@ -162,7 +162,7 @@ namespace DataGenerator.UI.CLI
             {
                 if (!dataLayer.Connect(connectionString))
                 {
-                    throw new ApplicationException("Error while trying to connect to the database.");
+                    throw new ApplicationException("No database connection.");
                 }
                 _dataLayer = dataLayer;
                 return true;
