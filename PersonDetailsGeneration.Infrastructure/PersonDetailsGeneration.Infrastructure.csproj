@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <AssemblyName>DataGenerator.Business.PersonalDataGeneration.Infrastructure</AssemblyName>
-    <RootNamespace>DataGenerator.Business.PersonalDataGeneration.Infrastructure</RootNamespace>
+    <AssemblyName>DataGenerator.Business.PersonDetailsGeneration.Infrastructure</AssemblyName>
+    <RootNamespace>DataGenerator.Business.PersonDetailsGeneration.Infrastructure</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CultureValueGeneration.Infrastructure\CultureValueGeneration.Infrastructure.csproj" />
     <ProjectReference Include="..\DataGenerator.Data.Infrastructure\DataModels.Infrastructure.csproj" />
+    <ProjectReference Include="..\DataGenerator.Data\DataModels.csproj" />
   </ItemGroup>
 
 </Project>

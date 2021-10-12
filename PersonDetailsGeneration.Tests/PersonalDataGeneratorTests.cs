@@ -1,7 +1,8 @@
-﻿using DataGenerator.Business.PersonalDataGeneration.Infrastructure;
+﻿using DataGenerator.Business.PersonDetailsGeneration.Infrastructure;
 using DataGenerator.Core.Container;
 using DataGenerator.Data.DataModels;
 using DataGenerator.Data.DataModels.Infrastructure;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,37 +10,49 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DataGenerator.Business.PersonalDataGeneration.Tests
+namespace DataGenerator.Business.PersonDetailsGeneration.Tests
 {
     public class PersonalDataGeneratorTests
     {
         
         [Fact]
-        public void GetFullName_ShouldCreateFirstAndLastNameMale()
+        public void Get_ShouldCreateMalePerson()
         {
             // Arrange
-            var generator = new PersonDataGenerator(CreateOptions());
-            string expected = "Benjamin Müller";
+            var generator = new PersonDetailsGenerator(CreateOptions());
+            var expected = new PersonDetail()
+            {
+                FirstName = "Benjamin",
+                LastName = "Müller",
+                IsoCode = IsoCode.DE,
+                Gender = Gender.Male
+            };
 
             // Act
-            object actual = generator.GetFullName(IsoCode.DE, Gender.Male);
+            var actual = generator.Get(IsoCode.DE, Gender.Male);
 
             // Assert
-            Assert.Equal(expected, actual.ToString());
+            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(actual));
         }
 
         [Fact]
-        public void GetFullName_ShouldCreateFirstAndLastNameFemale()
+        public void GetFullName_ShouldCreateFemalePerson()
         {
             // Arrange
-            var generator = new PersonDataGenerator(CreateOptions());
-            string expected = "Kim Smith";
+            var generator = new PersonDetailsGenerator(CreateOptions());
+            var expected = new PersonDetail()
+            {
+                FirstName = "Kim",
+                LastName = "Smith",
+                IsoCode = IsoCode.EN,
+                Gender = Gender.Female
+            };
 
             // Act
-            object actual = generator.GetFullName(IsoCode.EN, Gender.Female);
+            var actual = generator.Get(IsoCode.EN, Gender.Female);
 
             // Assert
-            Assert.Equal(expected, actual.ToString());
+            Assert.Equal(JsonConvert.SerializeObject(expected), JsonConvert.SerializeObject(actual));
         }
 
         private List<ICultureValue> CreateLastNames()
@@ -93,9 +106,9 @@ namespace DataGenerator.Business.PersonalDataGeneration.Tests
             };
         }
 
-        private IPersonDataGeneratorOptions CreateOptions()
+        private IPersonDetailsGeneratorOptions CreateOptions()
         {
-            return new PersonDataGeneratorOptions
+            return new PersonDetailsGeneratorOptions
                 (
                     ComponentFactory.CreateCultureValueGenerator(),
                     CreateFirstNamesMale(),

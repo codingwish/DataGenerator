@@ -2,9 +2,9 @@
 using DataGenerator.Data.DataModels.Infrastructure;
 using System.Collections.Generic;
 
-namespace DataGenerator.Business.PersonalDataGeneration.Infrastructure
+namespace DataGenerator.Business.PersonDetailsGeneration.Infrastructure
 {
-    public interface IPersonDataGeneratorOptions
+    public interface IPersonDetailsGeneratorOptions
     {
         List<ICultureValue> FemaleNames { get; }
         ICultureValueGenerator Generator { get; }
